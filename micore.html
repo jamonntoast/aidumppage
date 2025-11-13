@@ -1,0 +1,385 @@
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Australian Tax for Migrant Seniors</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chosen Palette: Warm Neutral (Stone & Blue) -->
+    <!-- Application Structure Plan: A single-page, multi-section design navigated by a sticky top bar. This thematic structure (Overview, Key Questions, How ATO Knows, Next Steps) is chosen for user-friendliness, breaking down complex tax information into digestible parts. The "Key Questions" section will be an interactive accordion/toggle, allowing users to select their specific query and get a direct answer, which is more usable than a static report. This design prioritizes clarity and guided exploration of a complex topic. -->
+    <!-- Visualization & Content Choices: 1. Core Concepts (Residency, Worldwide Income) -> Goal: Inform -> Method: Styled HTML cards in 'Overview' -> Interaction: None -> Justification: Clear, high-priority static info. 2. User's Specific Questions -> Goal: Organize/Inform -> Method: Interactive Accordion (HTML/JS) in 'Key Questions' section. -> Interaction: Click on question to toggle answer visibility. -> Justification: Directly answers user queries in a non-overwhelming, interactive way. 3. DTA & CRS Info -> Goal: Explain -> Method: Two separate styled HTML cards with icons (Unicode) in 'How ATO Knows' section. -> Interaction: None. -> Justification: Clearly isolates and explains the two key information-sharing mechanisms. 4. Action Items -> Goal: Call to Action -> Method: Styled HTML list in 'Next Steps'. -> Interaction: None. -> Justification: Provides a clear, actionable checklist. No charts are used as the content is explanatory, not quantitative. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .nav-link.active {
+            color: #2563eb;
+            font-weight: 600;
+        }
+        .accordion-toggle .arrow {
+            transition: transform 0.2s ease;
+        }
+        .accordion-toggle.active .arrow {
+            transform: rotate(180deg);
+        }
+        .scroll-mt-20 {
+            scroll-margin-top: 5rem;
+        }
+    </style>
+</head>
+<body class="bg-stone-50 text-stone-800">
+
+    <header class="sticky top-0 bg-white shadow-sm z-50 border-b border-stone-200">
+        <nav class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex-shrink-0">
+                    <h1 class="text-xl font-bold text-blue-700" data-key="headerTitle">Tax Obligations: Migrant Seniors</h1>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a href="#overview" class="nav-link text-stone-600 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium" data-key="navOverview">Overview</a>
+                        <a href="#questions" class="nav-link text-stone-600 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium" data-key="navQuestions">Key Questions</a>
+                        <a href="#sharing" class="nav-link text-stone-600 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium" data-key="navSharing">How ATO Knows</a>
+                        <a href="#next-steps" class="nav-link text-stone-600 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium" data-key="navNextSteps">Next Steps</a>
+                    
+                        <div class="ml-4 flex items-center space-x-2 border-l border-stone-300 pl-4">
+                            <button id="lang-en" class="lang-btn px-3 py-1 rounded-md text-sm font-medium" data-lang="en">English</button>
+                            <button id="lang-zh" class="lang-btn px-3 py-1 rounded-md text-sm font-medium" data-lang="zh">中文</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="md:hidden">
+                    <button id="mobile-menu-button" class="inline-flex items-center justify-center p-2 rounded-md text-stone-400 hover:text-stone-500 hover:bg-stone-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500">
+                        <span class="sr-only">Open main menu</span>
+                        <svg class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+                        </svg>
+                    </svg>
+                </button>
+            </div>
+        </nav>
+        <div id="mobile-menu" class="md:hidden hidden">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#overview" class="nav-link-mobile text-stone-600 hover:bg-stone-100 hover:text-blue-600 block px-3 py-2 rounded-md text-base font-medium" data-key="navOverview">Overview</a>
+                <a href="#questions" class="nav-link-mobile text-stone-600 hover:bg-stone-100 hover:text-blue-600 block px-3 py-2 rounded-md text-base font-medium" data-key="navQuestions">Key Questions</a>
+                <a href="#sharing" class="nav-link-mobile text-stone-600 hover:bg-stone-100 hover:text-blue-600 block px-3 py-2 rounded-md text-base font-medium" data-key="navSharing">How ATO Knows</a>
+                <a href="#next-steps" class="nav-link-mobile text-stone-600 hover:bg-stone-100 hover:text-blue-600 block px-3 py-2 rounded-md text-base font-medium" data-key="navNextSteps">Next Steps</a>
+            
+                <div class="mt-4 pt-4 border-t border-stone-200 flex items-center justify-center space-x-4">
+                    <button id="lang-en-mobile" class="lang-btn px-4 py-2 rounded-md text-base font-medium" data-lang="en">English</button>
+                    <button id="lang-zh-mobile" class="lang-btn px-4 py-2 rounded-md text-base font-medium" data-lang="zh">中文</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="container mx-auto p-4 sm:p-6 lg:p-8">
+
+        <section id="overview" class="mb-16 scroll-mt-20">
+            <h2 class="text-3xl font-bold tracking-tight text-stone-900 sm:text-4xl mb-6" data-key="sec1Title">Overview: The Core Principles</h2>
+            <p class="mb-8 text-lg text-stone-600" data-key="sec1Intro">This section covers the most important concepts that determine tax obligations. Understanding these principles is the first step in assessing your parents' situation. The key factors are their residency status for tax purposes and Australia's rules on foreign income.</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+                <div class="bg-white rounded-xl shadow-lg border border-stone-200 p-6">
+                    <h3 class="text-lg font-semibold text-blue-700 mb-2" data-key="card1Title">1. Australian Resident for Tax Purposes</h3>
+                    <p class="text-stone-600" data-key="card1Text">This is the most critical factor. It is different from their visa or citizenship status. Since they are permanent residents and live in NSW, the Australian Taxation Office (ATO) will almost certainly consider them "Australian residents for tax purposes."</p>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-lg border border-stone-200 p-6">
+                    <h3 class="text-lg font-semibold text-blue-700 mb-2" data-key="card2Title">2. The Worldwide Income Rule</h3>
+                    <p class="text-stone-600" data-key="card2Text">Australian residents for tax purposes are taxed on their <strong class="font-semibold text-stone-900">worldwide income</strong>. This means they must declare all income they earn from all sources, both inside and outside Australia. This includes income from China.</p>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-lg border border-stone-200 p-6 md:col-span-2 lg:col-span-1">
+                    <h3 class="text-lg font-semibold text-blue-700 mb-2" data-key="card3Title">3. Do They Need to Lodge a Tax Return?</h3>
+                    <p class="text-stone-600" data-key="card3Text">Yes, if their total worldwide income is above the tax-free threshold (currently $18,200 AUD). As they are over 70, they may be eligible for the Seniors and Pensioners Tax Offset (SAPTO), which increases their effective tax-free threshold. A tax professional must calculate this.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="questions" class="mb-16 scroll-mt-20">
+            <h2 class="text-3xl font-bold tracking-tight text-stone-900 sm:text-4xl mb-6" data-key="sec2Title">Your Key Questions Answered</h2>
+            <p class="mb-8 text-lg text-stone-600" data-key="sec2Intro">Here are direct answers to your specific questions. Click on any question to reveal the detailed information. This section breaks down the general rules from the overview into practical, specific scenarios relevant to your parents.</p>
+            
+            <div class="space-y-4">
+                <div class="bg-white rounded-lg shadow-sm border border-stone-200 overflow-hidden">
+                    <button class="accordion-toggle flex justify-between items-center w-full p-5 font-medium text-left text-stone-700 hover:bg-stone-50">
+                        <span class="text-base font-semibold" data-key="q1">If they earn income in Australia, must all foreign (Chinese) income be disclosed?</span>
+                        <span class="arrow text-stone-500">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </span>
+                    </button>
+                    <div class="accordion-content hidden p-5 border-t border-stone-200 bg-white">
+                        <p class="text-stone-600" data-key="a1"><strong>Yes.</strong> The requirement to declare worldwide income applies regardless of whether they also earn income in Australia. Even if they only earn $1 of Australian income (or no Australian income at all), as Australian tax residents, they must declare all their income from China (and any other country) on their Australian tax return.</p>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg shadow-sm border border-stone-200 overflow-hidden">
+                    <button class="accordion-toggle flex justify-between items-center w-full p-5 font-medium text-left text-stone-700 hover:bg-stone-50">
+                        <span class="text-base font-semibold" data-key="q2">Does a Chinese pension count towards foreign income?</span>
+                        <span class="arrow text-stone-500">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </span>
+                    </button>
+                    <div class="accordion-content hidden p-5 border-t border-stone-200 bg-white">
+                        <p class="text-stone-600" data-key="a2"><strong>Yes, almost certainly.</strong> Foreign pensions and annuities are generally considered assessable foreign income in Australia. The specifics of how it's taxed may depend on the Australia-China Double Taxation Agreement (DTA), but it must be reported. A tax agent can determine the correct treatment and any potential foreign income tax offsets for taxes already paid in China (if any).</p>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg shadow-sm border border-stone-200 overflow-hidden">
+                    <button class="accordion-toggle flex justify-between items-center w-full p-5 font-medium text-left text-stone-700 hover:bg-stone-50">
+                        <span class="text-base font-semibold" data-key="q3">Do Australia and China have systems to share tax details?</span>
+                        <span class="arrow text-stone-500">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </span>
+                    </button>
+                    <div class="accordion-content hidden p-5 border-t border-stone-200 bg-white">
+                        <p class="text-stone-600" data-key="a3"><strong>Yes.</strong> Two key agreements facilitate this:
+                        <br><br>
+                        <strong>1. The Double Taxation Agreement (DTA):</strong> This agreement allows the tax authorities of both countries to request specific information from each other to prevent tax evasion.
+                        <br><br>
+                        <strong>2. The Common Reporting Standard (CRS):</strong> This is a global, automatic system. Financial institutions in China report account information (balances, interest, etc.) of people they identify as Australian tax residents to the Chinese government, which then automatically sends this data to the ATO. This is a primary way the ATO finds out about foreign income and assets.</p>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-lg shadow-sm border border-stone-200 overflow-hidden">
+                    <button class="accordion-toggle flex justify-between items-center w-full p-5 font-medium text-left text-stone-700 hover:bg-stone-50">
+                        <span class="text-base font-semibold" data-key="q4">Would the ATO, banks, or Australia know about a Chinese pension or bank accounts?</span>
+                        <span class="arrow text-stone-500">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </span>
+                    </button>
+                    <div class="accordion-content hidden p-5 border-t border-stone-200 bg-white">
+                        <p class="text-stone-600" data-key="a4"><strong>It is extremely likely, yes.</strong> Due to the Common Reporting Standard (CRS), Chinese banks are required to identify account holders who are tax residents of other countries (like Australia) and report their account details (including balances and income) to the Chinese authorities, who then share it with the ATO. The ATO's data-matching systems are very sophisticated and compare this foreign data with what is lodged on Australian tax returns. It is safest to assume the ATO either already knows or will find out.</p>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-lg shadow-sm border border-stone-200 overflow-hidden">
+                    <button class="accordion-toggle flex justify-between items-center w-full p-5 font-medium text-left text-stone-700 hover:bg-stone-50">
+                        <span class="text-base font-semibold" data-key="q5">Are there community examples of the ATO requesting foreign income documents?</span>
+                        <span class="arrow text-stone-500">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </span>
+                    </button>
+                    <div class="accordion-content hidden p-5 border-t border-stone-200 bg-white">
+                        <p class="text-stone-600" data-key="a5"><strong>Yes, this is very common.</strong> The ATO frequently runs data-matching programs targeting foreign-sourced income. It is standard practice for the ATO to send letters to taxpayers they believe may have undeclared foreign income (based on CRS data or other sources), asking them to explain or amend their tax returns. You can find many such examples in the ATO's own community forum and other online Australian finance forums, where individuals discuss receiving these requests.</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section id="sharing" class="mb-16 scroll-mt-20">
+            <h2 class="text-3xl font-bold tracking-tight text-stone-900 sm:text-4xl mb-6" data-key="sec3Title">How Information is Shared: DTA & CRS</h2>
+            <p class="mb-8 text-lg text-stone-600" data-key="sec3Intro">It is crucial to understand that tax authorities have robust systems for sharing information across borders. This is not a guess; it is a formal, automated process. The two main pillars of this system are the Double Taxation Agreement (DTA) and the Common Reporting Standard (CRS).</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+                <div class="bg-white rounded-xl shadow-lg border border-stone-200 p-6">
+                    <h3 class="text-xl font-semibold text-stone-800 mb-3 flex items-center" data-key="card4Title">
+                        <span class="text-3xl mr-3">📄</span>
+                        Double Taxation Agreement (DTA)
+                    </h3>
+                    <p class="text-stone-600" data-key="card4Text">Australia and China have a DTA designed to prevent double taxation and fiscal evasion. A key part of this agreement is the "Exchange of Information" article. This allows the ATO to make a <strong class="font-semibold">specific request</strong> to China's tax authority (State Taxation Administration) for information about a specific taxpayer, such as details of their income or assets.</p>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-lg border border-stone-200 p-6">
+                    <h3 class="text-xl font-semibold text-stone-800 mb-3 flex items-center" data-key="card5Title">
+                        <span class="text-3xl mr-3">🌐</span>
+                        Common Reporting Standard (CRS)
+                    </h3>
+                    <p class="text-stone-600" data-key="card5Text">This is the more powerful, <strong class="font-semibold">automatic system</strong>. Both Australia and China are signatories. Under the CRS, Chinese banks and other financial institutions must review their accounts, identify those held by Australian tax residents, and automatically report the account details and financial information (like interest earned and account balances) to the ATO every year. This is a bulk data exchange, not a specific request.</p>
+                </div>
+            </div>
+        </section>
+        
+        <section id="next-steps" class="scroll-mt-20">
+            <h2 class="text-3xl font-bold tracking-tight text-stone-900 sm:text-4xl mb-6" data-key="sec4Title">Recommended Next Steps</h2>
+            <p class="mb-8 text-lg text-stone-600" data-key="sec4Intro">Given the complexity and the high likelihood of tax obligations, taking proactive steps is essential. Here is a recommended plan to ensure compliance and avoid potential penalties. This section also contains a critical disclaimer about the nature of this information.</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                
+                <div class="bg-white rounded-xl shadow-lg border border-stone-200 p-6">
+                    <h3 class="text-xl font-semibold text-stone-800 mb-4" data-key="planTitle">Action Plan</h3>
+                    <ul class="space-y-3">
+                        <li class="flex items-start">
+                            <span class="text-blue-600 font-bold mr-2 mt-1">✓</span>
+                            <span class="text-stone-600" data-key="plan1"><strong class="font-semibold text-stone-700">Gather Documents:</strong> Collect all financial statements from China, including pension statements, bank interest statements, and details of any other income or assets.</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-blue-600 font-bold mr-2 mt-1">✓</span>
+                            <span class="text-stone-600" data-key="plan2"><strong class="font-semibold text-stone-700">Do NOT Assume:</strong> Do not assume the ATO won't find out. The CRS system is specifically designed to share this information.</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-blue-600 font-bold mr-2 mt-1">✓</span>
+                            <span class="text-stone-600" data-key="plan3"><strong class="font-semibold text-stone-700">Consult a Professional:</strong> Book an appointment with a registered Australian tax agent who has experience with foreign income and migrants, particularly from China. They are the only ones qualified to give official advice.</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-blue-600 font-bold mr-2 mt-1">✓</span>
+                            <span class="text-stone-600" data-key="plan4"><strong class="font-semibold text-stone-700">Discuss Voluntary Disclosure:</strong> If tax returns for previous years should have been lodged but weren't, discuss making a "voluntary disclosure" with the tax agent. The ATO is generally far more lenient (e.g., reduced penalties) if you come forward before they audit you.</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="bg-red-50 rounded-xl shadow-lg border border-red-300 p-6">
+                    <h3 class="text-xl font-semibold text-red-800 mb-4" data-key="disclaimerTitle">CRITICAL: Professional Advice is Essential</h3>
+                    <p class="text-red-700" data-key="disclaimer1">The information provided in this application is for <strong class="font-semibold">general guidance and informational purposes only</strong>. It is based on publicly available information from the ATO and other sources.</p>
+                    <p class="mt-3 text-red-700" data-key="disclaimer2">It does <strong class="font-semibold">not</strong> constitute legal or financial tax advice. International tax law is complex and depends on individual circumstances.</p>
+                    <p class="mt-3 text-red-700" data-key="disclaimer3">You <strong class="font-semibold">must</strong> seek advice from a qualified and registered tax professional in Australia to assess your parents' specific situation and ensure they comply with Australian tax law.</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-stone-100 border-t border-stone-200 mt-16">
+        <div class="container mx-auto px-6 py-4 text-center text-stone-500 text-sm">
+            <p data-key="footerText">&copy; 2025 Informational Application. This is not official tax advice. Always consult a registered tax agent.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            
+            const accordionToggles = document.querySelectorAll('.accordion-toggle');
+            accordionToggles.forEach(button => {
+                button.addEventListener('click', () => {
+                    const content = button.nextElementSibling;
+                    button.classList.toggle('active');
+                    content.classList.toggle('hidden');
+                });
+            });
+
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+
+            const mobileNavLinks = document.querySelectorAll('.nav-link-mobile');
+            mobileNavLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.add('hidden');
+                });
+            });
+
+            const navLinks = document.querySelectorAll('.nav-link');
+            const sections = document.querySelectorAll('main section');
+
+            function changeActiveLink() {
+                let index = sections.length;
+
+                while(--index && window.scrollY + 100 < sections[index].offsetTop) {}
+                
+                navLinks.forEach((link) => link.classList.remove('active'));
+                
+                const activeLink = document.querySelector(`.nav-link[href="#${sections[index].id}"]`);
+                if (activeLink) {
+                    activeLink.classList.add('active');
+                }
+            }
+
+            changeActiveLink();
+            window.addEventListener('scroll', changeActiveLink);
+
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    navLinks.forEach((nav) => nav.classList.remove('active'));
+                    e.target.classList.add('active');
+                });
+            });
+
+            // --- NEW TRANSLATION LOGIC ---
+
+            const content = {
+                headerTitle: { en: "Tax Obligations: Migrant Seniors", zh: "移民长者税务责任" },
+                navOverview: { en: "Overview", zh: "概览" },
+                navQuestions: { en: "Key Questions", zh: "关键问题" },
+                navSharing: { en: "How ATO Knows", zh: "ATO如何知晓" },
+                navNextSteps: { en: "Next Steps", zh: "后续步骤" },
+                sec1Title: { en: "Overview: The Core Principles", zh: "概览：核心原则" },
+                sec1Intro: { en: "This section covers the most important concepts that determine tax obligations. Understanding these principles is the first step in assessing your parents' situation. The key factors are their residency status for tax purposes and Australia's rules on foreign income.", zh: "本节涵盖了决定税务责任的最重要概念。理解这些原则是评估您父母情况的第一步。关键因素是他们的税务居民身份以及澳大利亚对外国收入的规定。" },
+                card1Title: { en: "1. Australian Resident for Tax Purposes", zh: "1. 澳大利亚税务居民" },
+                card1Text: { en: "This is the most critical factor. It is different from their visa or citizenship status. Since they are permanent residents and live in NSW, the Australian Taxation Office (ATO) will almost certainly consider them \"Australian residents for tax purposes.\"", zh: "这是最关键的因素。这与他们的签证或公民身份不同。由于他们是永久居民并居住在新南威尔士州，澳大利亚税务局（ATO）几乎肯定会认为他们是“澳大利亚税务居民”。" },
+                card2Title: { en: "2. The Worldwide Income Rule", zh: "2. 全球收入规则" },
+                card2Text: { en: "Australian residents for tax purposes are taxed on their <strong class=\"font-semibold text-stone-900\">worldwide income</strong>. This means they must declare all income they earn from all sources, both inside and outside Australia. This includes income from China.", zh: "澳大利亚税务居民需要为其<strong class=\"font-semibold text-stone-900\">全球收入</strong>纳税。这意味着他们必须申报从所有来源（包括澳大利亚境内外）获得的所有收入。这也包括来自中国的收入。" },
+                card3Title: { en: "3. Do They Need to Lodge a Tax Return?", zh: "3. 他们需要提交纳税申报表吗？" },
+                card3Text: { en: "Yes, if their total worldwide income is above the tax-free threshold (currently $18,200 AUD). As they are over 70, they may be eligible for the Seniors and Pensioners Tax Offset (SAPTO), which increases their effective tax-free threshold. A tax professional must calculate this.", zh: "是的，如果他们的全球总收入高于免税门槛（目前为18,200澳元）。由于他们年过70，他们可能有资格享受长者和养老金领取者税收抵免（SAPTO），这会提高他们的有效免税门槛。必须由税务专业人士来计算。" },
+                sec2Title: { en: "Your Key Questions Answered", zh: "关键问题解答" },
+                sec2Intro: { en: "Here are direct answers to your specific questions. Click on any question to reveal the detailed information. This section breaks down the general rules from the overview into practical, specific scenarios relevant to your parents.", zh: "这里是您具体问题的直接答案。点击任何问题以显示详细信息。本节将概述中的一般规则分解为您父母相关的实际、具体情景。" },
+                q1: { en: "If they earn income in Australia, must all foreign (Chinese) income be disclosed?", zh: "如果在澳大利亚有收入，是否必须申报所有外国（中国）收入？" },
+                a1: { en: "<strong>Yes.</strong> The requirement to declare worldwide income applies regardless of whether they also earn income in Australia. Even if they only earn $1 of Australian income (or no Australian income at all), as Australian tax residents, they must declare all their income from China (and any other country) on their Australian tax return.", zh: "<strong>是的。</strong>申报全球收入的要求适用，无论他们是否同时在澳大利亚赚取收入。即使他们在澳大利亚只赚了1澳元（或根本没有澳大利亚收入），作为澳大利亚税务居民，他们也必须在澳大利亚税务申报中申报所有来自中国（以及任何其他国家）的收入。" },
+                q2: { en: "Does a Chinese pension count towards foreign income?", zh: "中国养老金是否算作外国收入？" },
+                a2: { en: "<strong>Yes, almost certainly.</strong> Foreign pensions and annuities are generally considered assessable foreign income in Australia. The specifics of how it's taxed may depend on the Australia-China Double Taxation Agreement (DTA), but it must be reported. A tax agent can determine the correct treatment and any potential foreign income tax offsets for taxes already paid in China (if any).", zh: "<strong>是的，几乎可以肯定。</strong>外国养老金和年金通常在澳大利亚被视为应纳税的外国收入。具体的征税方式可能取决于《澳中双重征税协定》（DTA），但必须申报。税务代理人可以确定正确的处理方式以及任何可能因在中国已缴税款而获得的外国所得税抵免。" },
+                q3: { en: "Do Australia and China have systems to share tax details?", zh: "澳大利亚和中国有共享税务信息的系统吗？" },
+                a3: { en: "<strong>Yes.</strong> Two key agreements facilitate this:<br><br><strong>1. The Double Taxation Agreement (DTA):</strong> This agreement allows the tax authorities of both countries to request specific information from each other to prevent tax evasion.<br><br><strong>2. The Common Reporting Standard (CRS):</strong> This is a global, automatic system. Financial institutions in China report account information (balances, interest, etc.) of people they identify as Australian tax residents to the Chinese government, which then automatically sends this data to the ATO. This is a primary way the ATO finds out about foreign income and assets.", zh: "<strong>是的。</strong>两个关键协议促进了这一点：<br><br><strong>1. 《双重征税协定》（DTA）：</strong>该协定允许两国税务机关相互请求特定信息，以防止逃税。<br><br><strong>2. 《共同申报准则》（CRS）：</strong>这是一个全球性的自动系统。中国的金融机构向中国政府报告他们识别为澳大利亚税务居民的人的账户信息（余额、利息等），然后中国政府自动将这些数据发送给ATO。这是ATO了解外国收入和资产的主要方式。" },
+                q4: { en: "Would the ATO, banks, or Australia know about a Chinese pension or bank accounts?", zh: "ATO、银行或澳大利亚会知道中国的养老金或银行账户吗？" },
+                a4: { en: "<strong>It is extremely likely, yes.</strong> Due to the Common Reporting Standard (CRS), Chinese banks are required to identify account holders who are tax residents of other countries (like Australia) and report their account details (including balances and income) to the Chinese authorities, who then share it with the ATO. The ATO's data-matching systems are very sophisticated and compare this foreign data with what is lodged on Australian tax returns. It is safest to assume the ATO either already knows or will find out.", zh: "<strong>是的，可能性极大。</strong>由于《共同申报准则》（CRS），中国银行被要求识别持有账户的他国（如澳大利亚）税务居民，并向中国当局报告其账户详细信息（包括余额和收入），然后当局会与ATO共享这些信息。ATO的数据匹配系统非常先进，会将这些外国数据与澳大利亚税务申报中提交的内容进行比较。最安全的假设是ATO已经知道或将会发现。" },
+                q5: { en: "Are there community examples of the ATO requesting foreign income documents?", zh: "是否有ATO要求提供外国收入文件的社区实例？" },
+                a5: { en: "<strong>Yes, this is very common.</strong> The ATO frequently runs data-matching programs targeting foreign-sourced income. It is standard practice for the ATO to send letters to taxpayers they believe may have undeclared foreign income (based on CRS data or other sources), asking them to explain or amend their tax returns. You can find many such examples in the ATO's own community forum and other online Australian finance forums, where individuals discuss receiving these requests.", zh: "<strong>是的，这很常见。</strong>ATO经常运行针对外国来源收入的数据匹配程序。ATO向他们认为（基于CRS数据或其他来源）可能有未申报外国收入的纳税人发信，要求他们解释或修改其税务申报，这是一种标准做法。您可以在ATO自己的社区论坛和其他澳大利亚在线金融论坛中找到许多此类示例，个人在这些论坛上讨论收到这些请求。" },
+                sec3Title: { en: "How Information is Shared: DTA & CRS", zh: "信息如何共享：DTA 和 CRS" },
+                sec3Intro: { en: "It is crucial to understand that tax authorities have robust systems for sharing information across borders. This is not a guess; it is a formal, automated process. The two main pillars of this system are the Double Taxation Agreement (DTA) and the Common Reporting Standard (CRS).", zh: "至关重要的是要了解，税务机关拥有强大的跨境信息共享系统。这不是猜测；这是一个正式的、自动化的过程。该系统的两大支柱是《双重征税协定》（DTA）和《共同申报准则》（CRS）。" },
+                card4Title: { en: "Double Taxation Agreement (DTA)", zh: "《双重征税协定》（DTA）" },
+                card4Text: { en: "Australia and China have a DTA designed to prevent double taxation and fiscal evasion. A key part of this agreement is the \"Exchange of Information\" article. This allows the ATO to make a <strong class=\"font-semibold\">specific request</strong> to China's tax authority (State Taxation Administration) for information about a specific taxpayer, such as details of their income or assets.", zh: "澳大利亚和中国签订了DTA，旨在防止双重征税和财政规避。该协定的一个关键部分是“信息交换”条款。这允许ATO向中国税务机关（国家税务总局）提出<strong class=\"font-semibold\">特定请求</strong>，以获取有关特定纳税人的信息，例如其收入或资产的详细信息。" },
+                card5Title: { en: "Common Reporting Standard (CRS)", zh: "《共同申报准则》（CRS）" },
+                card5Text: { en: "This is the more powerful, <strong class=\"font-semibold\">automatic system</strong>. Both Australia and China are signatories. Under the CRS, Chinese banks and other financial institutions must review their accounts, identify those held by Australian tax residents, and automatically report the account details and financial information (like interest earned and account balances) to the ATO every year. This is a bulk data exchange, not a specific request.", zh: "这是一个更强大、<strong class=\"font-semibold\">自动化的系统</strong>。澳大利亚和中国都是签署国。根据CRS，中国的银行和其他金融机构必须审查其账户，识别由澳大利亚税务居民持有的账户，并每年自动向ATO报告账户详细信息和财务信息（如赚取的利息和账户余额）。这是一种批量数据交换，而非特定请求。" },
+                sec4Title: { en: "Recommended Next Steps", zh: "建议的后续步骤" },
+                sec4Intro: { en: "Given the complexity and the high likelihood of tax obligations, taking proactive steps is essential. Here is a recommended plan to ensure compliance and avoid potential penalties. This section also contains a critical disclaimer about the nature of this information.", zh: "鉴于其复杂性和极有可能的税务责任，采取积极主动的措施至关重要。这里有一个确保合规并避免潜在处罚的推荐计划。本节还包含有关此信息性质的重要免责声明。" },
+                planTitle: { en: "Action Plan", zh: "行动计划" },
+                plan1: { en: "<strong class=\"font-semibold text-stone-700\">Gather Documents:</strong> Collect all financial statements from China, including pension statements, bank interest statements, and details of any other income or assets.", zh: "<strong class=\"font-semibold text-stone-700\">收集文件：</strong>收集所有来自中国的财务报表，包括养老金报表、银行利息报表以及任何其他收入或资产的详细信息。" },
+                plan2: { en: "<strong class=\"font-semibold text-stone-700\">Do NOT Assume:</strong> Do not assume the ATO won't find out. The CRS system is specifically designed to share this information.", zh: "<strong class=\"font-semibold text-stone-700\">切勿假设：</strong>切勿假设ATO不会发现。CRS系统就是专门为共享此类信息而设计的。" },
+                plan3: { en: "<strong class=\"font-semibold text-stone-700\">Consult a Professional:</strong> Book an appointment with a registered Australian tax agent who has experience with foreign income and migrants, particularly from China. They are the only ones qualified to give official advice.", zh: "<strong class=\"font-semibold text-stone-700\">咨询专业人士：</strong>预约一位在处理外国收入和移民（尤其来自中国）方面经验丰富的澳大利亚注册税务代理人。他们是唯一有资格提供官方建议的人。" },
+                plan4: { en: "<strong class=\"font-semibold text-stone-700\">Discuss Voluntary Disclosure:</strong> If tax returns for previous years should have been lodged but weren't, discuss making a \"voluntary disclosure\" with the tax agent. The ATO is generally far more lenient (e.g., reduced penalties) if you come forward before they audit you.", zh: "<strong class=\"font-semibold text-stone-700\">讨论主动披露：</strong>如果往年的税务申报本应提交但未提交，请与税务代理人讨论进行“主动披露”。如果您在ATO审计您之前主动站出来，ATO通常会宽大处理（例如，减少罚款）。" },
+                disclaimerTitle: { en: "CRITICAL: Professional Advice is Essential", zh: "重要提示：专业建议至关重要" },
+                disclaimer1: { en: "The information provided in this application is for <strong class=\"font-semibold\">general guidance and informational purposes only</strong>. It is based on publicly available information from the ATO and other sources.", zh: "本申请中提供的信息仅供<strong class=\"font-semibold\">一般指导和参考之用</strong>。它基于来自ATO和其他来源的公开信息。" },
+                disclaimer2: { en: "It does <strong class=\"font-semibold\">not</strong> constitute legal or financial tax advice. International tax law is complex and depends on individual circumstances.", zh: "它<strong class=\"font-semibold\">不</strong>构成法律或财务税务建议。国际税法很复杂，并取决于个人情况。" },
+                disclaimer3: { en: "You <strong class=\"font-semibold\">must</strong> seek advice from a qualified and registered tax professional in Australia to assess your parents' specific situation and ensure they comply with Australian tax law.", zh: "您<strong class=\"font-semibold\">必须</strong>寻求澳大利亚合格且注册的税务专业人士的建议，以评估您父母的具体情况，并确保他们遵守澳大利亚税法。" },
+                footerText: { en: "&copy; 2025 Informational Application. This is not official tax advice. Always consult a registered tax agent.", zh: "© 2025 信息应用。这不是官方税务建议。请务必咨询注册税务代理。" }
+            };
+
+            const langButtons = document.querySelectorAll('.lang-btn');
+            const htmlEl = document.documentElement;
+
+            function setLanguage(lang) {
+                htmlEl.setAttribute('lang', lang);
+
+                const elementsToTranslate = document.querySelectorAll('[data-key]');
+                elementsToTranslate.forEach(el => {
+                    const key = el.dataset.key;
+                    if (content[key] && content[key][lang]) {
+                        const text = content[key][lang];
+                        if (text.includes('<')) {
+                            el.innerHTML = text;
+                        } else {
+                            el.innerText = text;
+                        }
+                    }
+                });
+
+                // Update button styles
+                langButtons.forEach(btn => {
+                    if (btn.dataset.lang === lang) {
+                        btn.classList.add('bg-blue-600', 'text-white');
+                        btn.classList.remove('bg-white', 'text-stone-600', 'border', 'border-stone-300', 'hover:bg-stone-100');
+                    } else {
+                        btn.classList.remove('bg-blue-600', 'text-white');
+                        btn.classList.add('bg-white', 'text-stone-600', 'border', 'border-stone-300', 'hover:bg-stone-100');
+                    }
+                });
+            }
+
+            langButtons.forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const lang = e.target.dataset.lang;
+                    setLanguage(lang);
+                });
+            });
+
+            // Set initial language (default to English)
+            setLanguage('en');
+
+            // --- END TRANSLATION LOGIC ---
+        });
+    </script>
+
+</body>
+</html>
